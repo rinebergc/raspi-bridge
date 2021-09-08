@@ -44,7 +44,7 @@ if [ "$DEFAULT_IFACE" != "wlan0" ]; then
 
 # because service discovery on LAN is unnecessary in this configuration avahi-damon can be disabled to free resources.
 # for more information see: https://www.avahi.org, https://linux.die.net/man/8/avahi-daemon.
-sudo systemctl stop avahi-daemon && systemctl disable avahi-daemon
+sudo bash -c "systemctl stop avahi-daemon && systemctl disable avahi-daemon"
 
 # disable bluetooth
 if [ ! "grep -c "dtoverlay=disable-bt" /boot/config.txt" ]; then "echo 'dtoverlay=disable-bt' | sudo tee -a /boot/config.txt"; fi
