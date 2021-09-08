@@ -1,12 +1,11 @@
 raspberry pi 4 wireless bridge setup script  
   
-curl -L https://github.com/rinebergc/raspi-bridge/archive/refs/heads/main.zip -o raspi-bridge.zip  
-unzip raspi-bridge.zip  
-chmod +x raspi-bridge-main/router.sh  
-raspi-bridge-main/router.sh  
-chrontab -e >> @reboot /home/pi/router.sh
-  
 configure your pi's wireless connection  
+curl -L https://raw.githubusercontent.com/rinebergc/raspi-bridge/main/router.sh -o router.sh  
+chmod +x router.sh  
+./router.sh  
+chrontab -e >> @reboot /home/pi/router.sh
+    
 connect your pi and the target device via ethernet  
 your target device should now be able to access the internet
   
