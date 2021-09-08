@@ -4,9 +4,12 @@ curl -L https://github.com/rinebergc/raspi-bridge/archive/refs/heads/main.zip -o
 unzip raspi-bridge.zip  
 chmod +x raspi-bridge-main/router.sh  
 raspi-bridge-main/router.sh  
+chrontab -e >> @reboot /home/pi/router.sh
   
+configure your pi's wireless connection  
+connect your pi and the target device via ethernet  
+your target device should now be able to access the internet
   
-
 acknowldgements:  
 raspi-bridge was forked from the following gist  
 https://gist.github.com/Konamiman/110adcc485b372f1aff000b4180e2e10  
