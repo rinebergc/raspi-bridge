@@ -1,4 +1,4 @@
-raspberry pi wireless bridge setup script  
+raspberry pi 4 wireless bridge setup script  
   
 curl -L https://github.com/rinebergc/raspi-bridge/archive/refs/heads/main.zip -o raspi-bridge.zip  
 unzip raspi-bridge.zip  
