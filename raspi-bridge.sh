@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# dhcpcd is unnecessary in this configuration, if it has not been done already stop and disable it
+if [ ! "sudo systemctl list-units --type=service | grep 'dhcpcd.service'" ]; then sudo bash -c "systemctl stop dhcpcd.service && systemctl disable dhcpcd.service"; fi
+
+# service discovery on lan is unnecessary in this configuration, if it has not been done already stop and disable it.
+if [ ! "systemctl is-active avahi-daemon.service | grep -c 'inactive'"]; then sudo bash -c "systemctl stop avahi-daemon && systemctl disable avahi-daemon"; fi
+
+# bluetooth is unnecessary in this configuration, if it has not been done already disable it
+if [ ! "grep -c "dtoverlay=disable-bt" /boot/config.txt" ]; then "echo 'dtoverlay=disable-bt' | sudo tee -a /boot/config.txt"; fi
+
 echo Starting DHCP Server...
 
 # if not set, set the static interface and ip address.
@@ -13,12 +22,10 @@ sudo cp dhcpd.conf /etc/dhcp/dhcpd.conf && cp interfaces /etc/network/interfaces
 sudo ifconfig eth0 192.168.1.1
 
 # check the installation status of isc-dhcp-server:
-# (1) if it is missing, install it. (2) if the default dhcp server is enabled, stop and disable it to prevent conflicts. 
-# (3) if the isc-dhcp-server service is not enabled, enable and start it.
+# (1) if it is missing, install it. (2) if the isc-dhcp-server service is not enabled, enable and start it.
 # for more information see: https://man7.org/linux/man-pages/man1/dpkg-query.1.html, https://www.man7.org/linux/man-pages/man1/systemctl.1.html,
 # https://man7.org/linux/man-pages/man1/grep.1p.html, https://en.wikipedia.org/wiki/File_descriptor.
 if [ ! "dpkg-query -W -f='${Status}' isc-dhcp-server 2>/dev/null | grep -c 'ok installed'" ]; then sudo bash -c "apt-get -y update && apt-get -y upgrade && apt-get -y install isc-dhcp-server"; fi
-if [ ! "sudo systemctl list-units --type=service | grep 'dhcpcd.service'" ]; then sudo bash -c "systemctl stop dhcpcd.service && systemctl disable dhcpcd.service"; fi
 if [ ! "sudo systemctl list-units --type=service | grep 'isc-dhcp-server.service'" ]; then sudo bash -c "systemctl enable isc-dhcp-server.service"; fi
 sudo systemctl start isc-dhcp-server.service
 
@@ -41,10 +48,3 @@ if [ "$DEFAULT_IFACE" != "wlan0" ]; then
   echo Setting default route to wlan0 via $GW
   sudo route del default $DEFAULT_IFACE
   sudo route add default gw $GW wlan0; fi
-
-# because service discovery on LAN is unnecessary in this configuration avahi-damon can be disabled to free resources.
-# for more information see: https://www.avahi.org, https://linux.die.net/man/8/avahi-daemon.
-if [ ! "systemctl is-active avahi-daemon.service | grep -c 'inactive'"]; then sudo bash -c "systemctl stop avahi-daemon && systemctl disable avahi-daemon"; fi
-
-# disable bluetooth
-if [ ! "grep -c "dtoverlay=disable-bt" /boot/config.txt" ]; then "echo 'dtoverlay=disable-bt' | sudo tee -a /boot/config.txt"; fi
