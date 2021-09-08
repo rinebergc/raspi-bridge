@@ -25,7 +25,7 @@ sudo ifconfig eth0 192.168.1.1
 # (1) if it is missing, install it. (2) if the isc-dhcp-server service is not enabled, enable and start it.
 # for more information see: https://man7.org/linux/man-pages/man1/dpkg-query.1.html, https://www.man7.org/linux/man-pages/man1/systemctl.1.html,
 # https://man7.org/linux/man-pages/man1/grep.1p.html, https://en.wikipedia.org/wiki/File_descriptor.
-if [ ! "dpkg-query -W -f='${Status}' isc-dhcp-server 2>/dev/null | grep -c 'ok installed'" ]; then sudo bash -c "apt-get -y update && apt-get -y upgrade && apt-get -y install isc-dhcp-server"; fi
+if [ "dpkg-query -W -f='${Status}' isc-dhcp-server 2>/dev/null | grep -c 'no packages found'" ]; then sudo bash -c "apt-get -y update && apt-get -y upgrade && apt-get -y install isc-dhcp-server"; fi
 if [ ! "sudo systemctl list-units --type=service | grep 'isc-dhcp-server.service'" ]; then sudo bash -c "systemctl enable isc-dhcp-server.service"; fi
 sudo systemctl start isc-dhcp-server.service
 
