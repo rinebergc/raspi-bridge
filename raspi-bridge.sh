@@ -4,7 +4,7 @@
 if [ ! "sudo systemctl list-units --type=service | grep 'dhcpcd.service'" ]; then sudo bash -c "systemctl stop dhcpcd.service && systemctl disable dhcpcd.service"; fi
 
 # service discovery on lan is unnecessary in this configuration, if it has not been done already stop and disable it.
-if [ ! "systemctl is-active avahi-daemon.service | grep -c 'inactive'"]; then sudo bash -c "systemctl stop avahi-daemon && systemctl disable avahi-daemon"; fi
+if [ ! "systemctl is-active avahi-daemon.service | grep -c 'inactive'" ]; then sudo bash -c "systemctl stop avahi-daemon && systemctl disable avahi-daemon"; fi
 
 # bluetooth is unnecessary in this configuration, if it has not been done already disable it
 if [ ! "grep -c "dtoverlay=disable-bt" /boot/config.txt" ]; then "echo 'dtoverlay=disable-bt' | sudo tee -a /boot/config.txt"; fi
