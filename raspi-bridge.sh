@@ -29,7 +29,7 @@ echo Configuring NAT routes...
 # for more information see: https://man7.org/linux/man-pages/man8/ifconfig.8.html.
 if [ "grep -c 'INTERFACESv4=""' /etc/default/isc-dhcp-server" ]; then sudo bash -c "sed -i 's/INTERFACESv4=\"\"/INTERFACESv4=\"eth0\"/g' /etc/default/isc-dhcp-server"; fi
 sudo iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
-sudo iptables -A FORWARD -i wlan0 -o eth0 -m STATE --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i wlan0 -o eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 sudo iptables -A FORWARD -i eth0 -o wlan0 -j ACCEPT
 if [ "grep -ec '\#net.ipv4.ip_forward=1' /etc/sysctl.conf" ]; then sudo bash -c "sed -i 's/\#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf"; fi
 
