@@ -2,10 +2,13 @@
 
 echo Starting DHCP Server...
 
+# if not set, set the static interface and ip address.
+# copy configured files to overwrite their default counterparts.
 # set the server ip address in case it is not set elsewhere.
 # for more information see: https://man7.org/linux/man-pages/man8/ifconfig.8.html.
 if [ "grep -ec "\#interface eth0" /etc/dhcpcd.conf" ]; then sudo bash -c "sed -i 's/\#interface eth0/interface eth0/g' /etc/dhcpcd.conf"; fi
 if [ "grep -ec "\#static ip_address" /etc/dhcpcd.conf" ]; then sudo bash -c "sed -i 's/\#static ip_address/static ip_address 192.168.1.1/g' /etc/dhcpcd.conf"; fi
+sudo bash -c "cp ./etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf" && sudo bash -c "cp ./etc/network/interfaces /etc/network/interfaces" 
 sudo ifconfig eth0 192.168.1.1
 
 # check the installation status of isc-dhcp-server:
