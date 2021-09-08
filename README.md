@@ -1,6 +1,7 @@
 raspberry pi 4 wireless bridge setup script  
   
 configure your pi's wireless connection  
+cd ~  
 curl -L https://raw.githubusercontent.com/rinebergc/raspi-bridge/main/router.sh -o router.sh  
 chmod +x router.sh  
 ./router.sh  
