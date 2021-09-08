@@ -45,6 +45,5 @@ if [ "grep -ec '\#net.ipv4.ip_forward=1' /etc/sysctl.conf" ]; then sudo bash -c 
 DEFAULT_IFACE='route -n | grep -E "^0.0.0.0 .+UG" | awk `{print $8}`'
 if [ "$DEFAULT_IFACE" != "wlan0" ]; then
   GW='route -n | grep -E "^0.0.0.0 .+UG .+wlan0$" | awk `{print $2}`'
-  echo Setting default route to wlan0 via $GW
-  sudo route del default $DEFAULT_IFACE
-  sudo route add default gw $GW wlan0; fi
+  sudo bash -c "route del default $DEFAULT_IFACE"
+  sudo bash -c "route add default gw $GW wlan0"; fi
