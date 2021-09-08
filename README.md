@@ -15,4 +15,4 @@ acknowldgements:
 raspi-bridge was forked from the following gist  
 https://gist.github.com/Konamiman/110adcc485b372f1aff000b4180e2e10  
 changes include: formatting fixes (removed bad line endings, removed incorrect file paths, etc.),  
-auto config, logic to identify if the script has already been run and bypass first time setup.  
+auto config, env performance optimization, and logic to identify if the script has already been run and bypass first time setup.  
