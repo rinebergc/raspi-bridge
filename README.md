@@ -4,7 +4,8 @@ configure your pi's wireless connection
 curl -L https://raw.githubusercontent.com/rinebergc/raspi-bridge/main/router.sh -o router.sh  
 chmod +x router.sh  
 ./router.sh  
-chrontab -e >> @reboot /home/pi/router.sh
+chrontab -e  
+>> @reboot /home/pi/router.sh
     
 connect your pi and the target device via ethernet  
 your target device should now be able to access the internet
