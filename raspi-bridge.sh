@@ -42,8 +42,8 @@ if [ "grep -ec '\#net.ipv4.ip_forward=1' /etc/sysctl.conf" ]; then sudo bash -c 
 
 # if the default interface entry in the IP routing table is wlan0, nothing will happen; otherwise, wlan0 will be set as such.
 # for more information see: https://gist.github.com/Konamiman/110adcc485b372f1aff000b4180e2e10#step-3-set-the-wifi-network-as-the-main-route.
-DEFAULT_IFACE='route -n | grep -E "^0.0.0.0 .+UG" | awk `{print $8}`'
+DEFAULT_IFACE=`route -n | grep -E "^0.0.0.0 .+UG" | awk '{print $8}'`
 if [ "$DEFAULT_IFACE" != "wlan0" ]; then
-  GW='route -n | grep -E "^0.0.0.0 .+UG .+wlan0$" | awk `{print $2}`'
-  sudo bash -c "route del default $DEFAULT_IFACE"
-  sudo bash -c "route add default gw $GW wlan0"; fi
+  GW=`route -n | grep -E "^0.0.0.0 .+UG .+wlan0$" | awk '{print $2}'`
+  sudo route del default $DEFAULT_IFACE
+  sudo route add default gw $GW wlan0; fi
