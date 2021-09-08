@@ -7,8 +7,8 @@ raspi-bridge-main/router.sh
   
   
 
-acknowldgements:
-raspi-bridge was forked from the following gist
-https://gist.github.com/Konamiman/110adcc485b372f1aff000b4180e2e10
-changes include: formatting fixes (bad line endings, incorrect file paths, etc.), 
-auto config, logic to identify if the script has already been run and bypass first time setup.
+acknowldgements:  
+raspi-bridge was forked from the following gist  
+https://gist.github.com/Konamiman/110adcc485b372f1aff000b4180e2e10  
+changes include: formatting fixes (bad line endings, incorrect file paths, etc.),  
+auto config, logic to identify if the script has already been run and bypass first time setup.  
