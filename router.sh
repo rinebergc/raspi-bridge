@@ -8,7 +8,8 @@ echo Starting DHCP Server...
 # for more information see: https://man7.org/linux/man-pages/man8/ifconfig.8.html.
 if [ "grep -ec "\#interface eth0" /etc/dhcpcd.conf" ]; then sudo bash -c "sed -i 's/\#interface eth0/interface eth0/g' /etc/dhcpcd.conf"; fi
 if [ "grep -ec "\#static ip_address" /etc/dhcpcd.conf" ]; then sudo bash -c "sed -i 's/\#static ip_address/static ip_address 192.168.1.1/g' /etc/dhcpcd.conf"; fi
-sudo bash -c "cp ./etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf" && sudo bash -c "cp ./etc/network/interfaces /etc/network/interfaces" 
+curl -L https://raw.githubusercontent.com/rinebergc/raspi-bridge/main/etc/dhcp/dhcpd.conf -o dhcpd.conf && curl -L https://raw.githubusercontent.com/rinebergc/raspi-bridge/main/etc/network/interfaces -o interfaces
+sudo bash -c "cp dhcpd.conf /etc/dhcp/dhcpd.conf" && sudo bash -c "cp interfaces /etc/network/interfaces"
 sudo ifconfig eth0 192.168.1.1
 
 # check the installation status of isc-dhcp-server:
