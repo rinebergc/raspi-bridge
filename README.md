@@ -1,3 +1,5 @@
+THIS IS A WORK IN PROGRESS, AS IS IT WILL LIKELY FAIL TO RUN.
+
 raspberry pi 4 wireless bridge setup script  
   
 1. execute "sudo raspi-config", configure your pi's wireless settings and localization options, and reboot  
